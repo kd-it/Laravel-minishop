@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/kd-it/laravel-minishop/web:1727734669
+    image: ghcr.io/kd-it/laravel-minishop/web:1727849123
 
     #build: docker/web
     volumes:
@@ -12,7 +12,7 @@ services:
       - db
 
   app:
-    image: ghcr.io/kd-it/laravel-minishop/app:1727734667
+    image: ghcr.io/kd-it/laravel-minishop/app:1727849124
     #build: docker/app
     env_file:
       - env.txt
