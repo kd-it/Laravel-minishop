@@ -8,6 +8,7 @@ name: Autograding Tests
       - "routes/**"
       - "tests/**"
       - "config/**"
+      - ".github/workflow/classroom.yml"
   workflow_dispatch:
 
 env:
