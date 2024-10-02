@@ -14,8 +14,6 @@ env:
   project_name: test-${{ github.run_id }}
   LANG: ja_JP.UTF-8
   CONTAINE_USER: vscode
-  ARTIFACTS: 42
-  ARTIFACTS_DIR: 42
 
 permissions:
   checks: write
