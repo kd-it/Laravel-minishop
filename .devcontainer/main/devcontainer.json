@@ -58,10 +58,10 @@
 					"**/CVS": true,
 					"**/.DS_Store": true,
 					"**/Thumbs.db": true,
-					// "**/tests": true,
+					"**/tests": true,
 					"**/.github": true,
-					// "**/Pipfile*": true,
-					// "**/Makefile*": true,
+					"**/Pipfile*": true,
+					"**/Makefile*": true,
 					"**/.devcontainer": true,
 					"**/compose*.yml": true,
 					"**/docker": true
