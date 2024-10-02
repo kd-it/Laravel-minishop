@@ -85,7 +85,8 @@ jobs:
     - name: 結果画像の一覧作成
       if: always()
       run: |
-        docker compose -p ${{ env.project_name }} cp app:/app/results ${{ env.ARTIFACTS_DIR }}
+        docker compose -p ${{ env.project_name }} cp app:/app/results ${{ env.ARTIFACTS_DIR }}/
+        ls -l ${{ env.ARTIFACTS_DIR }}
         echo ARTIFACTS=$(find  ${{ env.ARTIFACTS_DIR }} -name "*.png") >> $GITHUB_ENV
         echo "ARTIFACTS=$ARTIFACTS"
     - name: 画像ファイルのアーティファクト化
