@@ -88,6 +88,7 @@ jobs:
       run: |
         docker compose -p ${{ env.project_name }} cp app:/app/results ${{ env.ARTIFACTS_DIR }}
         echo ARTIFACTS=$(find  ${{ env.ARTIFACTS_DIR }} -name "*.png") >> $GITHUB_ENV
+        echo "ARTIFACTS=$ARTIFACTS"
     - name: 画像ファイルのアーティファクト化
       if: always() && env.ARTIFACTS != ''
       uses: actions/upload-artifact@v4
