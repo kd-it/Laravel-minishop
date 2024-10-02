@@ -84,6 +84,7 @@ jobs:
           mkdir -p /tmp/artifacts-${{ env.project_name }}
           echo ARTIFACTS_DIR=/tmp/artifacts-${{ env.project_name }} >> $GITHUB_ENV
     - name: 結果画像の一覧作成
+      if: always()
       run: |
         docker compose -p ${{ env.project_name }} cp app:/app/results ${{ env.ARTIFACTS_DIR }}
         echo ARTIFACTS=$(find  ${{ env.ARTIFACTS_DIR }} -name "*.png") >> $GITHUB_ENV
