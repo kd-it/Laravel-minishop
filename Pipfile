@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 mysql-connector-python = "*"
-sqlalchemy = "*"
+#sqlalchemy = "*"
 
 [dev-packages]
 selenium = "*"

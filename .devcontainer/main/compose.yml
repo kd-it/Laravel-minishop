@@ -37,6 +37,6 @@ services:
       - db
     env_file:
       - ./env.txt
-      - ./env-pma.txt
+      - ./.env-pma.txt
     ports:
       - 127.0.0.1::80
