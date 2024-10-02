@@ -42,18 +42,12 @@ jobs:
           exit 1
         fi
         mv dot.env .env
-    - name: .envファイルの存在チェック
-      run: |
-        if [ ! -f .env ]; then
-          echo ".envファイルが存在しません"
-          exit 1
-        fi
     - name: コンテナの起動
       run: docker compose -p ${{ env.project_name }} -f compose.yml -f compose_test.yml up -d --quiet-pull
     - name: 結果画像の削除
       run: |
         rm -vf results/*.png
-    - name: リポジトリの所有者を変更
+    - name: リポジトリの所有者を変更(GitHub上のみ実行)
       if: ${{ !env.ACT }}
       run: |
         docker compose -p ${{ env.project_name }} exec app sudo chown -R ${{ env.CONTAINE_USER }} /app
@@ -85,18 +79,10 @@ jobs:
         runners: dbcheck,toppage
 
     - name: アーティファクト置場の確認
+      if: always()
       run: |
-        # もしact環境なら、カレントディレクトリ上にartifactsディレクトリを作成
-        # このパスをGITHUB_ENVに追加する
-        # github actionsであれば、~/artifactsにアーティファクトを保存
-        # 同様にGITHUB_ENVに追加する
-        if [ -n "$ACT" ]; then
-          mkdir -p ./artifacts-${{ env.project_name }}
-          echo ARTIFACTS_DIR=./artifacts-${{ env.project_name }} >> $GITHUB_ENV
-        else
-          mkdir -p ~/artifacts-${{ env.project_name }}
-          echo ARTIFACTS_DIR=$HOME/artifacts-${{ env.project_name }} >> $GITHUB_ENV
-        fi
+          mkdir -p /tmp/artifacts-${{ env.project_name }}
+          echo ARTIFACTS_DIR=/tmp/artifacts-${{ env.project_name }} >> $GITHUB_ENV
     - name: 結果画像の一覧作成
       run: |
         docker compose -p ${{ env.project_name }} cp app:/app/results ${{ env.ARTIFACTS_DIR }}
@@ -108,9 +94,6 @@ jobs:
         name: result-images
         path: |
           ${{ env.ARTIFACTS }}
-    - name: アーティファクトのディレクトリを削除しておく
-      if: always()
-      run: rm -rf ${{ env.ARTIFACTS_DIR }}
     - name: コンテナの停止
       if: always()
       run: docker compose  -p ${{ env.project_name }} down --rmi=local -v --timeout=3
