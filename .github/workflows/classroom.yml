@@ -11,7 +11,6 @@ name: Autograding Tests
   workflow_dispatch:
 
 env:
-  # test-NNNNNN: ランダムな数字6桁を付けて重複を回避させる
   project_name: test-${{ github.run_id }}
   LANG: ja_JP.UTF-8
   CONTAINE_USER: vscode
@@ -76,10 +75,6 @@ jobs:
         command: 'docker compose -p ${{ env.project_name }} exec app make test FILE=tests/test_minishop_toppage.py'
         max-score: 1
         timeout: 2
-    # - name: 結果画像の場所確認
-    #   if: always()
-    #   run: |
-    #     find `pwd` -type f | sort
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
@@ -119,6 +114,3 @@ jobs:
     - name: コンテナの停止
       if: always()
       run: docker compose  -p ${{ env.project_name }} down --rmi=local -v --timeout=3
-    # - name: check files
-    #   if: always()
-    #   run: pwd; ls -l results
